@@ -1,6 +1,8 @@
 
 import streamlit as st
 from google import genai
+from google.genai import types
+
 st.set_page_config(page_title='Jango')
 st.title('JANGO')
 st.markdown("Bienvenue sur **JANGO**, votre assistant conversationnel intelligent. Posez vos questions sur les produits, services ou informations de l'entreprise. JANGO fournit des réponses claires, précises et adaptées à votre demande grâce à l'intelligence artificielle. ")
@@ -138,17 +140,16 @@ Ton objectif est d'offrir une excellente expérience client.
     #Réponse en streaming
     stream= client.models.generate_content_stream(
     model= "gemini-2.5-flash",
-    content= history,
-    config= {
+    contents= history,
+    config= types.GenerateContentConfig{
         "system_instruction": system_prompt,
         "temperature":0.3,
         "max_output_tokens":200
     })
 
+    with st.chat_message('assistant'):
     response = st.write_stream(
         chunk.text for chunk in stream
     )
-    with st.chat_message('assistant'):
-        st.markdown(response)
     st.session_state.messages.append(
     {"role": "assistant", "content": response})
