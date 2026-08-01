@@ -173,7 +173,7 @@ stream= client.models.generate_content_stream(
     ))
 
 with st.chat_message('assistant'):
-        esponse = st.write_stream(
+       response = st.write_stream(
         chunk.text for chunk in stream
     )
 st.session_state.messages.append(
