@@ -132,12 +132,10 @@ Ton objectif est d'offrir une excellente expérience client.
 """
     history=[]
     for msg in st.session_state.messages:
-        role= "user"
-        if role == "assistant":
-            role="model"
         history.append({
-        'role': msg['role'],
-        'parts':[{'text':msg['content']}]
+        "role": "model" if msg["role"] == "assistant" else "user",
+        "parts": [{"text": msg["content"]}]
+    })
     })
 
     #Réponse en streaming
@@ -147,7 +145,7 @@ Ton objectif est d'offrir une excellente expérience client.
     config= types.GenerateContentConfig(
         system_instruction= system_prompt,
         temperature= 0.3,
-        max_output_tokens= 200
+        max_output_tokens= 500
     ))
 
     with st.chat_message('assistant'):
