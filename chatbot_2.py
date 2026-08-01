@@ -52,7 +52,7 @@ with st.sidebar:
     
 #Gestion de la réponse llm
   #conversion de l'historique adapté au llm
-    system_prompt = """
+system_prompt = """
 Tu es JANGO, l'assistant virtuel officiel de TechNova Store, une entreprise spécialisée dans la vente de produits informatiques et électroniques.
 
 Ta mission est d'aider les clients à obtenir rapidement des informations sur les produits, les commandes, les paiements et les services.
@@ -155,15 +155,15 @@ Lorsque cela est pertinent, termine la réponse par une proposition d'aide, par 
 
 Ton objectif est d'offrir une excellente expérience client.
 """
-    history=[]
-    for msg in st.session_state.messages:
-        history.append({
-        "role": "model" if msg["role"] == "assistant" else "user",
-        "parts": [{"text": msg["content"]}]
+history=[]
+for msg in st.session_state.messages:
+    history.append({
+    "role": "model" if msg["role"] == "assistant" else "user",
+    "parts": [{"text": msg["content"]}]
     })
 
     #Réponse en streaming
-    stream= client.models.generate_content_stream(
+stream= client.models.generate_content_stream(
     model= "gemini-2.5-flash",
     contents= history,
     config= types.GenerateContentConfig(
@@ -172,10 +172,10 @@ Ton objectif est d'offrir une excellente expérience client.
         max_output_tokens= max_tokens
     ))
 
-    with st.chat_message('assistant'):
-         response = st.write_stream(
+with st.chat_message('assistant'):
+        esponse = st.write_stream(
         chunk.text for chunk in stream
     )
-    st.session_state.messages.append(
-    {"role": "assistant", "content": response})
+st.session_state.messages.append(
+{"role": "assistant", "content": response})
 
