@@ -1,6 +1,6 @@
 
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 st.set_page_config(page_title='Jango')
 st.title('JANGO')
 st.markdown("Bienvenue sur **JANGO**, votre assistant conversationnel intelligent. Posez vos questions sur les produits, services ou informations de l'entreprise. JANGO fournit des réponses claires, précises et adaptées à votre demande grâce à l'intelligence artificielle. ")
