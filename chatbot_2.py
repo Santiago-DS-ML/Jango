@@ -136,7 +136,6 @@ Ton objectif est d'offrir une excellente expérience client.
         "role": "model" if msg["role"] == "assistant" else "user",
         "parts": [{"text": msg["content"]}]
     })
-    })
 
     #Réponse en streaming
     stream= client.models.generate_content_stream(
