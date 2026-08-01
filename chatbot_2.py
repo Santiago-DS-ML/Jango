@@ -132,6 +132,9 @@ Ton objectif est d'offrir une excellente expérience client.
 """
     history=[]
     for msg in st.session_state.messages:
+        role= "user"
+        if role == "assistant":
+            role="model"
         history.append({
         'role': msg['role'],
         'parts':[{'text':msg['content']}]
