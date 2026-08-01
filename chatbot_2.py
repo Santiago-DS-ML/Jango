@@ -141,11 +141,11 @@ Ton objectif est d'offrir une excellente expérience client.
     stream= client.models.generate_content_stream(
     model= "gemini-2.5-flash",
     contents= history,
-    config= types.GenerateContentConfig{
-        "system_instruction": system_prompt,
-        "temperature":0.3,
-        "max_output_tokens":200
-    })
+    config= types.GenerateContentConfig(
+        system_instruction= system_prompt,
+        temperature= 0.3,
+        max_output_tokens= 200
+    ))
 
     with st.chat_message('assistant'):
     response = st.write_stream(
