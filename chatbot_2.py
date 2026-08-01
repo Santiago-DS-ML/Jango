@@ -156,7 +156,7 @@ Ton objectif est d'offrir une excellente expérience client.
 """
     history=[]
     for msg in st.session_state.messages:
-    history.append({
+        history.append({
     "role": "model" if msg["role"] == "assistant" else "user",
     "parts": [{"text": msg["content"]}]
     })
