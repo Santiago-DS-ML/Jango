@@ -25,6 +25,31 @@ if user_question := st.chat_input('Poser une question'):
         st.markdown(user_question)
     st.session_state.messages.append({'role': 'user', 'content': user_question})
 
+#Sidebar
+with st.sidebar: 
+    st.title('⚙️ Paramètres')
+    st.markdown("---")
+    temperature = st.slider(
+        "Température",
+        min_value=0.0,
+        max_value=2.0,
+        value=0.3,
+        step=0.1
+    )
+
+    max_tokens = st.slider(
+        "Max Output Tokens",
+        min_value= 100,
+        max_value= 2000,
+        value= 500,
+        step=100
+    )
+    st.markdown("---")
+    if st.button("🗑️ Supprimer l'historique"): 
+        st.session_state.messages=[] 
+        st.rerun()
+
+    
 #Gestion de la réponse llm
   #conversion de l'historique adapté au llm
     system_prompt = """
@@ -143,8 +168,8 @@ Ton objectif est d'offrir une excellente expérience client.
     contents= history,
     config= types.GenerateContentConfig(
         system_instruction= system_prompt,
-        temperature= 0.3,
-        max_output_tokens= 500
+        temperature= temperature,
+        max_output_tokens= max_tokens
     ))
 
     with st.chat_message('assistant'):
@@ -154,8 +179,3 @@ Ton objectif est d'offrir une excellente expérience client.
     st.session_state.messages.append(
     {"role": "assistant", "content": response})
 
-with st.sidebar: 
-    st.title('Panneau de configuration avancée') 
-    if st.button("🗑️ Supprimer l'historique"): 
-        st.session_state.messages=[] 
-        st.rerun()
