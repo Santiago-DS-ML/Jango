@@ -153,3 +153,9 @@ Ton objectif est d'offrir une excellente expérience client.
     )
     st.session_state.messages.append(
     {"role": "assistant", "content": response})
+
+    with st.sidebar(): 
+        st.title('Panneau de configuration avancée') 
+        if st.button("🗑️ Supprimer l'historique"): 
+            st.session_state.messages=[] 
+            st.rerun()
